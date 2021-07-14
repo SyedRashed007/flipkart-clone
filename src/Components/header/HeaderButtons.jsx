@@ -1,5 +1,6 @@
 import { Box, Button, makeStyles, Typography, Badge } from "@material-ui/core"
 import {ShoppingCart} from '@material-ui/icons'
+import {Link} from 'react-router-dom'
 
 const useStyle = makeStyles({
     login:{
@@ -8,30 +9,36 @@ const useStyle = makeStyles({
         textTransform: 'none',
         fontWeight: 600,
         borderRadius: 2,
-        padding: '5px 40px'
+        padding: '5px 40px',
+        boxShadow: 'none'
     },
     wrapper: {
-        margin: '0 5% 0',
+        margin: '0 7% 0',
         display: 'flex',
         '& > *':{
             marginRight: 50,
-            fontSize: 12,
-
+            fontSize: 13,
+            alignItems: 'center',
+            textDecoration: 'none',
+            color: '#fff'
         }
+    },
+    container:{
+        display: 'flex'
     }
 })
 const HeaderButtons = () => {
     const classes = useStyle();
     return(
         <Box className={classes.wrapper}>
-            <Button variant="contained" className={classes.login}>Login</Button>
-            <Typography>More</Typography>
-            <Box>
-                <Badge badgeContent={2} color="primary">
+            <Link><Button variant="contained" className={classes.login}>Login</Button></Link>
+            <Link><Typography style={{marginTop: 5}}>More</Typography></Link>
+            <Link to='/cart' className={classes.container}>
+                <Badge badgeContent={2} color="secondary">
                     <ShoppingCart/>
                 </Badge>
-                    <Typography>Cart</Typography>
-            </Box>
+                    <Typography style={{marginLeft: '10px'}}>Cart</Typography>
+            </Link>
         </Box>
     )
 }
