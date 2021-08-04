@@ -1,5 +1,6 @@
 import {Box, Dialog, DialogContent, Typography, TextField, Button, makeStyles} from '@material-ui/core'
 import {useState} from 'react'
+import { authenticateSignup } from '../../service/api'
 
 const useStyle = makeStyles({
     component:{
@@ -91,6 +92,11 @@ const LoginDialog = ({open, setOpen}) => {
     const toggleAccount = () => {
         setAccount(initialValue.signup)
     }
+
+    const signupUser = async () => {
+        let response = await authenticateSignup();
+    
+    }
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent className={classes.component}>
@@ -117,7 +123,7 @@ const LoginDialog = ({open, setOpen}) => {
                             <TextField name="email" label="Enter Email"/>
                             <TextField name="password" label="Enter Password"/>
                             <TextField name="phone" label="Enter Phone"/>
-                            <Button variant="contained" className={classes.loginbtn}>Sign up</Button>                
+                            <Button variant="contained" onClick={() => signupUser} className={classes.loginbtn}>Sign up</Button>                
                         </Box>
                     } 
                </Box> 
