@@ -81,22 +81,39 @@ const initialValue = {
 
     }
 }
+
+const signupInitialValues = {
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    password: '',
+    phone: ''
+}
 const LoginDialog = ({open, setOpen}) => {
 
     const classes = useStyle();
     const [account, setAccount] = useState(initialValue.login)
+    const [signup, setSignup] = useState(signupInitialValues)
     const handleClose = () => {
         setOpen(false)
         setAccount(initialValue.login)
     }
+
     const toggleAccount = () => {
         setAccount(initialValue.signup)
     }
 
-    const signupUser = async () => {
-        let response = await authenticateSignup();
-    
+    const onInputChange = (e) => {
+        setSignup({...signup, [e.target.name]: e.target.value});
+        console.log(signup)
     }
+    const signupUser = async () => {
+        let response = await authenticateSignup(signup);
+        if(!response) return;
+        handleClose()
+    }
+    
     return (
         <Dialog open={open} onClose={handleClose}>
             <DialogContent className={classes.component}>
@@ -117,12 +134,12 @@ const LoginDialog = ({open, setOpen}) => {
                             <Typography onClick={() => toggleAccount()} className={classes.createText}>New to Flipkart? Create an account</Typography>
                         </Box> : 
                         <Box className={classes.signup}>
-                            <TextField name="firstname" label="Enter Firstname"/>
-                            <TextField name="lastname" label="Enter Lastname"/>
-                            <TextField name="username" label="Enter Username"/>
-                            <TextField name="email" label="Enter Email"/>
-                            <TextField name="password" label="Enter Password"/>
-                            <TextField name="phone" label="Enter Phone"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="firstname" label="Enter Firstname"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="lastname" label="Enter Lastname"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="username" label="Enter Username"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="email" label="Enter Email"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="password" label="Enter Password"/>
+                            <TextField onChange={(e) => onInputChange(e)} name="phone" label="Enter Phone"/>
                             <Button variant="contained" onClick={() => signupUser} className={classes.loginbtn}>Sign up</Button>                
                         </Box>
                     } 
