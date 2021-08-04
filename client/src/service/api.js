@@ -6,6 +6,6 @@ export const authenticateSignup = async(user) => {
     try{
         return await axios.post(`${url}/signup`, user)
     } catch (error){
-        console.log("Error while calling signup api", error.message)
+        console.log("Error while calling signup api", error)
     }
 }
