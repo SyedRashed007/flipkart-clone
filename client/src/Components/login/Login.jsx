@@ -1,6 +1,6 @@
 import {Box, Dialog, DialogContent, Typography, TextField, Button, makeStyles} from '@material-ui/core'
 import {useState} from 'react'
-import { authenticateSignup } from '../../service/api'
+import { authenticateSignup, authenticateLogin } from '../../service/api'
 
 const useStyle = makeStyles({
     component:{
@@ -56,7 +56,7 @@ const useStyle = makeStyles({
     },
     text: {
         color: '#878787',
-        fontSize: 12
+        fontSize: 9
     },
     createText: {
         margin: 'auto 0 5px 0',
@@ -66,7 +66,15 @@ const useStyle = makeStyles({
         fontSize: 14,
         cursor: 'pointer'
     },
+    error: {
+        fontSize: 10,
+        color: '#ff6161',
+        lineHeight: 0,
+        marginTop: 10,
+        fontWeight: 600
+    }
 })
+
 
 const initialValue = {
     login:{
@@ -78,8 +86,13 @@ const initialValue = {
         view: 'signup',
         heading: "Looks like you're new here" ,
         subheading: 'Signup to get started'
-
+        
     }
+}
+
+const loginInitialValues = {
+    username: '',
+    password: ''
 }
 
 const signupInitialValues = {
@@ -95,6 +108,9 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
     const classes = useStyle();
     const [account, toggleAccount] = useState(initialValue.login)
     const [signup, setSignup] = useState(signupInitialValues)
+    const[login, setLogin] = useState(loginInitialValues)
+    const [error, showError] = useState(false)
+
     const handleClose = () => {
         setOpen(false)
         toggleAccount(initialValue.login)
@@ -114,6 +130,21 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
         handleClose()
         setAccount(signup.username)
     }
+
+    const loginUser = async () => {
+        let response = await authenticateLogin(login);
+        if(!response) 
+            showError(true);
+        else{
+            showError(false)
+            handleClose()
+            setAccount(login.username)
+        }
+    } 
+
+    const onValueChange = (e) => {
+        setLogin({ ...login, [e.target.name]: e.target.value})
+    }
     
     return (
         <Dialog open={open} onClose={handleClose}>
@@ -126,10 +157,11 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
                     {
                         account.view === "login" ?
                         <Box className={classes.login}>
-                            <TextField name="username" label="Enter Email/Mobile Number"/>
-                            <TextField name="password" label="Enter Password"/>
+                            <TextField onChange={(e) => onValueChange(e)} name="username" label="Enter Email/Mobile Number"/>
+                            <TextField onChange={(e) => onValueChange(e)} name="password" label="Enter Password"/>
+                            { error && <Typography className={classes.error}>Please enter valid Email ID/Mobile Number</Typography>}
                             <Typography className={classes.text}>By continuing, you agree to Flipkart's Terms of Use and Privacy Policy.</Typography>
-                            <Button variant="contained" className={classes.loginbtn}>Login</Button>
+                            <Button onClick={loginUser} variant="contained" className={classes.loginbtn}>Login</Button>
                             <Typography className={classes.text} style={{textAlign: 'center'}}>Or</Typography>
                             <Button variant="contained" className={classes.requestbtn}>Request OTP</Button>
                             <Typography onClick={() => toggleUserAccount()} className={classes.createText}>New to Flipkart? Create an account</Typography>

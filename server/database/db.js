@@ -11,3 +11,5 @@ const Connection = async (username, password) => {
     }
 }
 export default Connection
+
+// `mongodb://${username}:${password}@ecommerceweb-shard-00-00.uvpmh.mongodb.net:27017,ecommerceweb-shard-00-01.uvpmh.mongodb.net:27017,ecommerceweb-shard-00-02.uvpmh.mongodb.net:27017/ECOMMERCE?ssl=true&replicaSet=atlas-zpqr73-shard-0&authSource=admin&retryWrites=true&w=majority`
