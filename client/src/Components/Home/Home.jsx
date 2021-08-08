@@ -2,7 +2,7 @@ import Navbar from './NavBar'
 import Banner from './Banner'
 import Slide from './Slide'
 import MidSection from './MidSection'
-// import {products} from '../../constants/data.js'
+// import { products } from '../../constants/data'
 
 import {useDispatch, useSelector} from 'react-redux'
 import { Box, makeStyles } from '@material-ui/core'
@@ -26,7 +26,7 @@ const Home = () => {
     const classes = useStyle();
     const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
     
-    const { products } = useSelector(state => state.getProducts)
+    const { products} = useSelector(state => state.getProducts)
     
     const dispatch = useDispatch();
 
@@ -70,7 +70,7 @@ const Home = () => {
                 <Slide 
                     timer={false}
                     title="Recommended Items"
-                    products={products}
+                   products={products}
                 />
                 <Slide 
                     timer={false}
