@@ -2,7 +2,12 @@ import Navbar from './NavBar'
 import Banner from './Banner'
 import Slide from './Slide'
 import MidSection from './MidSection'
+// import {products} from '../../constants/data.js'
+
+import {useDispatch, useSelector} from 'react-redux'
 import { Box, makeStyles } from '@material-ui/core'
+import { useEffect } from 'react'
+import { getProducts as listProducts } from '../../redux/actions/productActions'
 
 const useStyle= makeStyles({
     component:{
@@ -20,6 +25,15 @@ const useStyle= makeStyles({
 const Home = () => {
     const classes = useStyle();
     const adURL = 'https://rukminim1.flixcart.com/flap/464/708/image/633789f7def60050.jpg?q=70';
+    
+    const { products } = useSelector(state => state.getProducts)
+    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(listProducts())
+    }, [dispatch])
+    
     return(
         <div>
             <Navbar/>
@@ -30,6 +44,7 @@ const Home = () => {
                         <Slide 
                             timer={true}
                             title="Deal of the day"
+                            products={products}
                         />
                     </Box>
                     <Box className={classes.rightWrapper}>
@@ -40,22 +55,27 @@ const Home = () => {
                 <Slide 
                     timer={false}
                     title="Discounts for you"
+                    products={products}
                 />
                 <Slide 
                     timer={false}
                     title="Suggested Items"
+                    products={products}
                 />
                 <Slide 
                     timer={false}
                     title="Top Selection"
+                    products={products}
                 />
                 <Slide 
                     timer={false}
                     title="Recommended Items"
+                    products={products}
                 />
                 <Slide 
                     timer={false}
                     title="Bestsellers"
+                    products={products}
                 />
             </Box>
         </div>

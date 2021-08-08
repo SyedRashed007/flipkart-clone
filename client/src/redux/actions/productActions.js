@@ -9,6 +9,6 @@ export const getProducts = () =>  async (dispatch) => {
         const {data} = await axios.get(`${url}/products`)
         dispatch({type: actionTypes.GET_PRODUCTS_SUCCESS, payload: data})
     } catch(error){
-        console.log("Error while calling products api", error.message)
+        dispatch({type: actionTypes.GET_PRODUCTS_FAIL, payload: error.response})
     }
 }

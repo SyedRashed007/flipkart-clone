@@ -1,6 +1,5 @@
 import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
-import {products} from '../../constants/data.js'
 import { Box, makeStyles, Typography, Button, Divider } from '@material-ui/core'
 import Countdown from 'react-countdown'
 
@@ -58,7 +57,7 @@ const useStyle = makeStyles({
         padding: '35px 15px'
     }
 })
-const Slide = ( { timer, title }) => {
+const Slide = ( { timer, title, products }) => {
     const classes = useStyle();
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
