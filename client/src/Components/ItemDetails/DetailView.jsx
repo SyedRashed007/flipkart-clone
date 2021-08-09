@@ -5,6 +5,7 @@ import { getProductDetails } from  '../../redux/actions/productActions'
 import clsx from 'clsx'
 import {LocalOffer as Badge} from '@material-ui/icons'
 
+import ActionItem from './ActionItem';
 
 const useStyles = makeStyles(theme => ({
     component:{
@@ -15,9 +16,9 @@ const useStyles = makeStyles(theme => ({
         background: '#FFFFFF',
         margin: '0 80px',
         display: 'flex',
-        [theme.breakpoints.down('md')]: {
-            margin: 0
-        }
+        // [theme.breakpoints.down('md')]: {
+        //     margin: 0
+        // }
     },
     rightContainer: {
         marginTop: 50,
@@ -68,7 +69,7 @@ const DetailView = ({ match }) => {
         { product && Object.keys(product).length && 
             <Box className={classes.container}>
                 <Box style={{minWidth: '40%'}}>
-                    bgbggbg
+                    <ActionItem product={product}/>
                 </Box>
                 <Box className={classes.rightContainer}>
                    <Typography>{product.title.longTitle}</Typography>
