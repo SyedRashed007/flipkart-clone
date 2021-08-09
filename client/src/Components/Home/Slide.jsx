@@ -2,7 +2,7 @@ import Carousel from 'react-multi-carousel';
 import "react-multi-carousel/lib/styles.css";
 import { Box, makeStyles, Typography, Button, Divider } from '@material-ui/core'
 import Countdown from 'react-countdown'
-
+import {Link} from 'react-router-dom'
 const responsive = {
     desktop: {
         breakpoint: { max: 3000, min: 1024 },
@@ -95,12 +95,15 @@ const Slide = ( { timer, title, products }) => {
             >
             {
                 products.map(product => (
-                    <Box textAlign="center" className={classes.wrapper}>
-                        <img className={classes.image} src={product.url} alt="Images"/>
-                        <Typography className={classes.text} style={{fontWeight: 600, color: '#212121'}}>{product.title.shortTitle}</Typography>
-                        <Typography className={classes.text} style={{color: 'green'}}>{product.discount}</Typography>
-                        <Typography className={classes.text} style={{color: '#212121', opacity: '.6'}}>{product.tagline}</Typography>
-                    </Box>
+                    /* console.log(product) */
+                    <Link to={`product/${product.id}`}>
+                        <Box textAlign="center" className={classes.wrapper}>
+                            <img className={classes.image} src={product.url} alt="Images"/>
+                            <Typography className={classes.text} style={{fontWeight: 600, color: '#212121'}}>{product.title.shortTitle}</Typography>
+                            <Typography className={classes.text} style={{color: 'green'}}>{product.discount}</Typography>
+                            <Typography className={classes.text} style={{color: '#212121', opacity: '.6'}}>{product.tagline}</Typography>
+                        </Box>
+                    </Link>
                 ))
             }
             </Carousel>
