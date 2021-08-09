@@ -1,4 +1,4 @@
-import { Box, makeStyles, Typography } from '@material-ui/core'
+import { Box, Button, makeStyles, Typography } from '@material-ui/core'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CartItem from './CartItem'
@@ -25,6 +25,21 @@ const useStyles = makeStyles(theme => ({
         padding: '15px 25px',
         background: '#fff'
     },
+    bottom: {
+        padding: '16px 22px',
+        background: '#fff',
+        boxShadow: '0 -2px 10px 0 rgb(0 0 0 / 10%)',
+        borderTop: '1px solid #f0f0f0'
+    },
+    placeOrder: {
+        display: 'flex',
+        marginLeft: 'auto',
+        background: '#fb641b',
+        color: '#fff',
+        borderRadius: 2,
+        width: 250,
+        height: 51
+    }
 }))
 const Cart = () => {
 
@@ -53,6 +68,9 @@ const Cart = () => {
                                 <CartItem item={item} removeItemFromCart={removeItemFromCart}/>
                             ))
                         }
+                        <Box className={classes.bottom}>
+                            <Button className={classes.placeOrder} variant="contained">Place Order</Button>
+                        </Box>
                     </Box>
                     <Box className={classes.rightComponent}>
 
