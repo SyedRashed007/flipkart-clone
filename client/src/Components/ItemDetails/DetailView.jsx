@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
     rightContainer: {
         marginTop: 50,
+        textAlign: 'left',
         '& > *': {
             marginTop: 10
         }
