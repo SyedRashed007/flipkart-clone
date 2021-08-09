@@ -24,8 +24,8 @@ const GroupButton = () => {
 
     return(
         <ButtonGroup className={classes.component}>
-            <Button className={classes.button} onClick={() => handleDecrement()}>-</Button>
-            <Button disabled>{counter}</Button>
+            <Button disabled={counter===1} className={classes.button} onClick={() => handleDecrement()}>-</Button>
+            <Button>{counter}</Button>
             <Button className={classes.button} onClick={() => handleIncrement()}>-</Button>
         </ButtonGroup>
     )
