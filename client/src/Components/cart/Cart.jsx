@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import CartItem from './CartItem'
 import {removeFromCart} from '../../redux/actions/cartActions'
 import EmptyCart from './EmptyCart'
+import TotalView from './TotalView'
 
 const useStyles = makeStyles(theme => ({
     component:{
         marginTop: 55,
         padding: '30px 135px',
-        // display: 'flex',
+        display: 'flex',
         // [theme.breakpoints.down('sm')]: {
         //     padding: '15px 0'
         // }
@@ -72,9 +73,7 @@ const Cart = () => {
                             <Button className={classes.placeOrder} variant="contained">Place Order</Button>
                         </Box>
                     </Box>
-                    <Box className={classes.rightComponent}>
-
-                    </Box>
+                        <TotalView cartItems={cartItems}/>
                 </Box> 
                     : <EmptyCart/>
         }

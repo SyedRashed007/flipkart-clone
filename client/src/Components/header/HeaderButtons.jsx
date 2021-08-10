@@ -2,6 +2,7 @@ import { Box, Button, makeStyles, Typography, Badge } from "@material-ui/core"
 import {ShoppingCart} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
 import { useContext, useState } from "react"
+import {useSelector} from 'react-redux'
 
 import LoginDialog from '../login/Login'
 import { LoginContext } from "../../context/ContextProvider"
@@ -35,6 +36,9 @@ const useStyle = makeStyles({
 const HeaderButtons = () => {
     const [open, setOpen] = useState(false)
     const {account, setAccount} = useContext(LoginContext) 
+    
+    const cartDetails = useSelector(state=> state.cart);
+    const { cartItems } = cartDetails;
     const openLoginDialog = () => {
         setOpen(true)
     }
@@ -50,7 +54,7 @@ const HeaderButtons = () => {
         }
             <Link><Typography style={{marginTop: 5}}>More</Typography></Link>
             <Link to='/cart' className={classes.container}>
-                <Badge badgeContent={2} color="secondary">
+                <Badge badgeContent={cartItems.length} color="secondary">
                     <ShoppingCart/>
                 </Badge>
                     <Typography style={{marginLeft: '10px'}}>Cart</Typography>
