@@ -4,6 +4,8 @@ import { ShoppingCart as Cart, FlashOn as Flash } from '@material-ui/icons';
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
 import { useHistory } from 'react-router-dom'
+import { payUsingPaytm } from "../../service/api";
+import {post} from '../../utils/paytm'
 
 const useStyles = makeStyles(theme => ({
     leftContainer:{
@@ -44,11 +46,20 @@ const ActionItem = ({product}) => {
         dispatch(addToCart(product.id))
         history.push('/cart')
     }
+
+    const buyNow = async () => {
+        let response = await payUsingPaytm({ amount: 500, email: 'syedrasheduddin07@gmail.com'})
+        let information = {
+            action: 'https://securegw-stage.paytm.in/order/process',
+            params: response
+        }
+        post(information)
+    }
     return (
         <Box className={classes.leftContainer}>
            <img src={product.detailUrl} className={classes.productImage} alt="Product Img"></img><br/> 
             <Button variant="contained" onClick={() => addItemToCart()} style={{marginRight: 10}} className={clsx(classes.button, classes.addToCart)}><Cart/>Add to Cart</Button>
-            <Button variant="contained" className={clsx(classes.button, classes.buyNow)}><Flash/>Buy Now</Button>
+            <Button variant="contained" onClick={() => buyNow()} className={clsx(classes.button, classes.buyNow)}><Flash/>Buy Now</Button>
         </Box>
     )
 }
