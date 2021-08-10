@@ -5,6 +5,8 @@ import CartItem from './CartItem'
 import {removeFromCart} from '../../redux/actions/cartActions'
 import EmptyCart from './EmptyCart'
 import TotalView from './TotalView'
+import { post } from '../../utils/paytm'
+import { payUsingPaytm } from '../../service/api'
 
 const useStyles = makeStyles(theme => ({
     component:{
@@ -55,6 +57,15 @@ const Cart = () => {
     useEffect(() => {
         console.log(cartItems)
     })
+
+    const buyNow = async () => {
+        let response = await payUsingPaytm({ amount: 500, email: 'syedrasheduddin07@gmail.com'})
+        let information = {
+            action: 'https://securegw-stage.paytm.in/order/process',
+            params: response
+        }
+        post(information)
+    }
     return(
         <>
         {
@@ -70,7 +81,7 @@ const Cart = () => {
                             ))
                         }
                         <Box className={classes.bottom}>
-                            <Button className={classes.placeOrder} variant="contained">Place Order</Button>
+                            <Button onClick={() => buyNow()} className={classes.placeOrder} variant="contained">Place Order</Button>
                         </Box>
                     </Box>
                         <TotalView cartItems={cartItems}/>
