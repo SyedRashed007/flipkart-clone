@@ -1,5 +1,5 @@
 import {Box, Dialog, DialogContent, Typography, TextField, Button, makeStyles} from '@material-ui/core'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import { authenticateSignup, authenticateLogin } from '../../service/api'
 
 const useStyle = makeStyles({
@@ -111,6 +111,10 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
     const[login, setLogin] = useState(loginInitialValues)
     const [error, showError] = useState(false)
 
+    useEffect(() => {
+        showError(false);
+    }, [login])
+    
     const handleClose = () => {
         setOpen(false)
         toggleAccount(initialValue.login)
@@ -122,8 +126,13 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
 
     const onInputChange = (e) => {
         setSignup({...signup, [e.target.name]: e.target.value});
-        console.log(signup)
+        // console.log(signup)
     }
+
+    const onValueChange = (e) => {
+        setLogin({ ...login, [e.target.name]: e.target.value})
+    }
+
     const signupUser = async () => {
         let response = await authenticateSignup(signup);
         if(!response) return;
@@ -142,9 +151,6 @@ const LoginDialog = ({open, setOpen, setAccount}) => {
         }
     } 
 
-    const onValueChange = (e) => {
-        setLogin({ ...login, [e.target.name]: e.target.value})
-    }
     
     return (
         <Dialog open={open} onClose={handleClose}>

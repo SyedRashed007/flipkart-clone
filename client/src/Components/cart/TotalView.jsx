@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles({
     component: {
-        width: '30%',
+        // width: '30%',
         marginLeft: 15,
         background: '#fff',
         textAlign: 'left'
