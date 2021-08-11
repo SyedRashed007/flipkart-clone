@@ -9,7 +9,7 @@ import { Box, makeStyles } from '@material-ui/core'
 import { useEffect } from 'react'
 import { getProducts as listProducts } from '../../redux/actions/productActions'
 
-const useStyle= makeStyles({
+const useStyle= makeStyles(theme => ({
     component:{
         padding: 10,
         background: '#F2F2F2'
@@ -18,9 +18,18 @@ const useStyle= makeStyles({
         background: '#FFFFFF',
         padding: 5,
         margin: '12px 0 0 10px',
-        width: '16%'
+        width: '16%',
+        [theme.breakpoints.down('md')]: {
+            display:'none'
+        }
+    },
+    leftWrapper:{
+        width: '83%',
+        [theme.breakpoints.down('md')]: {
+            width: '100%'
+        }
     }
-})
+}))
 
 const Home = () => {
     const classes = useStyle();
@@ -40,7 +49,7 @@ const Home = () => {
             <Box className={classes.component}>
                 <Banner/>
                 <Box style={{display: 'flex'}}>
-                    <Box style={{width: '83%'}}>
+                    <Box className={classes.leftWrapper}>
                         <Slide 
                             timer={true}
                             title="Deal of the day"

@@ -18,7 +18,7 @@ const responsive = {
     }
 };
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
     component:{
         marginTop: 12,
         background: '#FFFFFF'
@@ -29,13 +29,15 @@ const useStyle = makeStyles({
     },
     image: {
         height: 150,
-
     },
     timer:{
         color: '#7f7f7f',
         marginLeft: 10,
         display: 'flex',
-        alignItems: 'center'
+        alignItems: 'center',
+        [theme.breakpoints.down('sm')]:{
+            display: 'none'
+        }
     },
     dealText: {
         fontSize: 22,
@@ -55,8 +57,14 @@ const useStyle = makeStyles({
     },
     wrapper:{
         padding: '35px 15px'
+    },
+    time:{
+        width: 25,
+        [theme.breakpoints.down('sm')]:{
+            display: 'none'
+        }
     }
-})
+}))
 const Slide = ( { timer, title, products }) => {
     const classes = useStyle();
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
@@ -72,7 +80,7 @@ const Slide = ( { timer, title, products }) => {
             {
                 timer && 
                 <>
-                    <img src={timerURL} alt="Timer" style={{width: 25}}/>
+                    <img className={classes.time} src={timerURL} alt="Timer"/>
                     <Countdown date={Date.now() + 5.04e+7} renderer={renderer} />
                     <Button variant="contained" color="primary" className={classes.button} >View All</Button>
                 </>
@@ -88,7 +96,7 @@ const Slide = ( { timer, title, products }) => {
                 autoPlay={true}
                 autoPlaySpeed={1000}
                 keyBoardControl={true}
-                removeArrowOnDeviceType={["tablet", "mobile"]}
+                // removeArrowOnDeviceType={["tablet", "mobile"]}
                 dotListClass="custom-dot-list-style"
                 itemClass="carousel-item-padding-40-px"
                 containerClass="carousel-container"
